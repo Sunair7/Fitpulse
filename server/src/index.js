@@ -16,9 +16,16 @@ if (!process.env.JWT_SECRET) {
   process.exit(1);
 }
 
-app.use(cors({
-  origin: "*"
-}));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5173',
+      'https://fitpulse-lime.vercel.app'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  })
+);
 
 // Connect to Database
 connectDB();
