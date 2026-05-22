@@ -23,10 +23,25 @@ const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
 app.use(
   cors({
-    origin: clientOrigin,
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        'http://localhost:5173',
+        'https://fitpulse-lime.vercel.app'
+      ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   })
 );
+
+/* 🔥 CRITICAL FIX FOR PREFLIGHT */
+app.options('*', cors());
 app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 
