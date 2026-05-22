@@ -40,8 +40,7 @@ app.use(
   })
 );
 
-/* 🔥 CRITICAL FIX FOR PREFLIGHT */
-app.options('*', cors());
+
 app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 
