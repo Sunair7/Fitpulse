@@ -1,4 +1,4 @@
-const API_PREFIX = '/api';
+const API_PREFIX = import.meta.env.VITE_API_URL;
 
 export async function api(path, init = {}) {
   const headers = new Headers(init.headers);
