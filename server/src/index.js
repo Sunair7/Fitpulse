@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import app from './app.js';
-
+import connectDB from './db/connect.js'; 
 const PORT = Number(process.env.PORT) || 5000;
 const uri = process.env.MONGODB_URI;
 
@@ -14,14 +14,4 @@ if (!process.env.JWT_SECRET) {
   process.exit(1);
 }
 
-mongoose
-  .connect(uri)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`API listening on http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
-  });
+connectDB();
